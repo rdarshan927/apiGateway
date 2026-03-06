@@ -20,6 +20,6 @@ COPY src src
 # Build the application
 RUN ./mvnw clean package -DskipTests -B
 
-# Run the application
+# Run the application with proper JVM settings for Cloud Run
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "target/api-gateway-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-server", "-Djava.security.egd=file:/dev/./urandom", "-jar", "target/api-gateway-0.0.1-SNAPSHOT.jar"]
