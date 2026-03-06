@@ -22,4 +22,4 @@ RUN ./mvnw clean package -DskipTests -B
 
 # Run the application with proper JVM settings for Cloud Run
 EXPOSE 8080
-CMD ["java", "-server", "-Djava.security.egd=file:/dev/./urandom", "-jar", "target/api-gateway-0.0.1-SNAPSHOT.jar"]
+CMD ["sh", "-c", "java -server -Xmx512m -XX:+UseG1GC -XX:MaxGCPauseMillis=100 -Dspring.jmx.enabled=false -Djava.security.egd=file:/dev/./urandom -Dserver.address=0.0.0.0 -Dserver.port=${PORT:-8080} -jar target/*.jar"]
